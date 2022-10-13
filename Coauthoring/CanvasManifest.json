@@ -94,11 +94,11 @@
     "Id": "e6b9957d-70f0-438d-9b73-d131ed9ca7a7",
     "InstrumentationKey": "",
     "LocalDatabaseReferences": "{}",
-    "Name": "For Article",
+    "Name": "For Article 123",
     "OriginatingVersion": "1.326"
   },
   "PublishInfo": {
-    "AppName": "For Article",
+    "AppName": "For Article 123",
     "BackgroundColor": "RGBA(0,176,240,1)",
     "IconColor": "RGBA(255,255,255,1)",
     "IconName": "Edit",
