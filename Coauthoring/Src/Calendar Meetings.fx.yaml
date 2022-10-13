@@ -1,0 +1,232 @@
+"'Calendar Meetings' As screen":
+    OnVisible: =
+
+    Label2 As label:
+        Align: =Align.Center
+        Color: =RGBA(255, 255, 255, 1)
+        Fill: =RGBA(39, 113, 194, 1)
+        FontWeight: =FontWeight.Bold
+        Height: =60
+        Size: =20
+        Text: ="Calendar Meetings"
+        Width: =1366
+        ZIndex: =1
+
+    galCalendarMeetings As gallery.galleryVertical:
+        BorderThickness: =1
+        Height: =491
+        Items: =colCalendarMeetings
+        Layout: =Layout.Vertical
+        TemplatePadding: =0
+        TemplateSize: =47
+        Width: =1326
+        X: =22
+        Y: =233
+        ZIndex: =1
+
+        Label3 As label:
+            Height: =47
+            OnSelect: =Select(Parent)
+            Text: =ThisItem.subject
+            Width: =Label9.Width
+            ZIndex: =1
+
+        Label5 As label:
+            Height: =47
+            OnSelect: =Select(Parent)
+            Text: =ThisItem.startWithTimeZone
+            Width: =Label9_1.Width
+            X: =Label3.X+Label3.Width
+            ZIndex: =2
+
+        Label6 As label:
+            Height: =47
+            OnSelect: =Select(Parent)
+            Text: =ThisItem.endWithTimeZone
+            Width: =209
+            X: =Label5.X+Label5.Width
+            ZIndex: =3
+
+        HtmlText1 As htmlViewer:
+            Height: =47
+            HtmlText: |-
+                ="<b><font color=black>" & "<div
+                  overflow-y: hidden;
+                ></div>" & Text(ThisItem.body) & "</font></b>"
+            OnSelect: =Select(Parent)
+            Size: =15
+            Width: =517
+            X: =Label6.X+Label6.Width
+            ZIndex: =5
+
+        Rectangle1 As rectangle:
+            BorderStyle: =BorderStyle.None
+            Height: =1
+            OnSelect: =Select(Parent)
+            Width: =galCalendarMeetings.TemplateWidth
+            Y: =46
+            ZIndex: =6
+
+    Image1 As image:
+        Height: =50
+        Image: =User().Image
+        RadiusBottomLeft: =50
+        RadiusBottomRight: =50
+        RadiusTopLeft: =50
+        RadiusTopRight: =50
+        Width: =50
+        X: =1296
+        Y: =5
+        ZIndex: =2
+
+    Label7 As label:
+        Align: =Align.Right
+        Color: =RGBA(255, 255, 255, 1)
+        Size: =10
+        Text: ="Welcome"&" "&User().FullName
+        VerticalAlign: =VerticalAlign.Top
+        Width: =177
+        X: =1119
+        Y: =15
+        ZIndex: =3
+
+    drpCalendar As dropdown:
+        Height: =41
+        Items: =Office365Outlook.CalendarGetTablesV2().value.name
+        Width: =209
+        X: =20
+        Y: =120
+        ZIndex: =4
+
+    dtStartDate As datepicker:
+        Width: =216
+        X: =252
+        Y: =120
+        ZIndex: =5
+
+    dtEndDate As datepicker:
+        Width: =216
+        X: =499
+        Y: =120
+        ZIndex: =6
+
+    Label1 As label:
+        FontWeight: =FontWeight.Bold
+        Height: =23
+        Text: ="Calendar"
+        X: =20
+        Y: =88
+        ZIndex: =7
+
+    Label1_1 As label:
+        FontWeight: =FontWeight.Bold
+        Height: =23
+        Text: ="Start Date"
+        X: =252
+        Y: =88
+        ZIndex: =8
+
+    Label1_2 As label:
+        FontWeight: =FontWeight.Bold
+        Height: =23
+        Text: ="End Date"
+        X: =499
+        Y: =88
+        ZIndex: =9
+
+    btnFetchMeetings As button:
+        OnSelect: |-
+            =ClearCollect(
+                colCalendarMeetings,
+                Filter(
+                    Office365Outlook.GetEventsCalendarViewV3(
+                        LookUp(
+                            Office365Outlook.CalendarGetTablesV2().value,
+                            name = drpCalendar.Selected.name,
+                            id
+                        ),
+                        dtStartDate.SelectedDate,
+                        dtEndDate.SelectedDate
+                    ).value,
+                    Value(
+                        Text(
+                            startWithTimeZone,
+                            "[$-en-US]yyyymmdd"
+                        )
+                    ) >= Value(
+                        Text(
+                            dtStartDate.SelectedDate,
+                            "[$-en-US]yyyymmdd"
+                        )
+                    ),
+                    Value(
+                        Text(
+                            endWithTimeZone,
+                            "[$-en-US]yyyymmdd"
+                        )
+                    ) <= Value(
+                        Text(
+                            dtEndDate.SelectedDate,
+                            "[$-en-US]yyyymmdd"
+                        )
+                    )
+                )
+            );
+            /*ClearCollect(
+                colCalendarMeetings,
+                Office365Outlook.GetEventsCalendarViewV3(
+                    LookUp(
+                        Office365Outlook.CalendarGetTablesV2().value,
+                        name = drpCalendar.Selected.name,
+                        id
+                    ),
+                    dtStartDate.SelectedDate,
+                    dtEndDate.SelectedDate
+                ).value
+            )*/
+        RadiusBottomLeft: =50
+        RadiusBottomRight: =50
+        RadiusTopLeft: =50
+        RadiusTopRight: =50
+        Text: ="Fetch meetings"
+        Width: =180
+        X: =744
+        Y: =120
+        ZIndex: =10
+
+    Label9 As label:
+        Color: =RGBA(255, 255, 255, 1)
+        Fill: =RGBA(50, 86, 160, 1)
+        Text: ="Meeting Subject"
+        Width: =400
+        X: =22
+        Y: =193
+        ZIndex: =11
+
+    Label9_1 As label:
+        Color: =RGBA(255, 255, 255, 1)
+        Fill: =RGBA(50, 86, 160, 1)
+        Text: ="Start Time"
+        Width: =200
+        X: =Label9.X+Label9.Width
+        Y: =193
+        ZIndex: =12
+
+    Label9_2 As label:
+        Color: =RGBA(255, 255, 255, 1)
+        Fill: =RGBA(50, 86, 160, 1)
+        Text: ="End Time"
+        Width: =200
+        X: =622
+        Y: =193
+        ZIndex: =13
+
+    Label9_3 As label:
+        Color: =RGBA(255, 255, 255, 1)
+        Fill: =RGBA(50, 86, 160, 1)
+        Text: ="Meeting Notes"
+        Width: =528
+        X: =822
+        Y: =193
+        ZIndex: =14
+
