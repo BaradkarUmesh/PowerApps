@@ -90,3 +90,8 @@ Screen2 As screen:
         Y: =172
         ZIndex: =3
 
+    Rectangle2 As rectangle:
+        X: =142
+        Y: =207
+        ZIndex: =4
+
