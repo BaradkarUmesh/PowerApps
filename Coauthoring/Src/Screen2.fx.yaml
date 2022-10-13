@@ -91,6 +91,7 @@ Screen2 As screen:
         ZIndex: =3
 
     Rectangle2 As rectangle:
+        Width: =613
         X: =142
         Y: =207
         ZIndex: =4
