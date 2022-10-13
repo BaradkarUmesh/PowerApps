@@ -82,3 +82,11 @@ Screen2 As screen:
             Y: =24
             ZIndex: =7
 
+    TextInput1 As text:
+        Default: ="CoAuthoring"
+        Height: =171
+        Width: =513
+        X: =740
+        Y: =172
+        ZIndex: =3
+
